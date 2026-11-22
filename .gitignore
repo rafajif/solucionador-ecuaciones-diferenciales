@@ -1,8 +1,11 @@
 __pycache__/
 *.py[cod]
+*.tsbuildinfo
 .pytest_cache/
 .venv/
 venv/
 node_modules/
 dist/
+build/
+.edo-lab.lock
 .env
