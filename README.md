@@ -1,182 +1,206 @@
-# EDO Lab — Laboratorio de Ecuaciones Diferenciales Ordinarias
+# 🧪 EDO Lab — Laboratorio Interactivo de Ecuaciones Diferenciales Ordinarias 🚀
 
-> **Documento de Instrucciones de Instalación y Ejecución**  
-> **Destinatario:** Licenciado Hernán Antonio Berríos Gómez  
-> **Proyecto:** EDO Lab — Aplicación local para la clasificación, resolución y verificación simbólica de Ecuaciones Diferenciales Ordinarias (EDO).
+<div align="center">
 
----
+![EDO Lab Banner](https://img.shields.io/badge/EDO%20Lab-Matem%C3%A1tica%20IV-0876a6?style=for-the-badge&logo=math&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![SymPy](https://img.shields.io/badge/SymPy-Exact_Math-3B5526?style=for-the-badge&logo=python&logoColor=white)
+![Tests](https://img.shields.io/badge/Pytest-21%2F21%20Passing-success?style=for-the-badge&logo=pytest&logoColor=white)
 
-## 1. Presentación del Proyecto
-
-Estimado **Licenciado Hernán Antonio Berríos Gómez**:
-
-**EDO Lab** es una herramienta educativa y de cálculo simbólico diseñada para ejecutarse de forma **100% local en su equipo Windows**, sin depender de servicios en la nube ni de modelos generativos externos. La aplicación cuenta con una interfaz web moderna e interactiva desarrollada en **React** con soporte para notación matemática mediante **MathLive / KaTeX**, conectada a un núcleo de cálculo algebraico exacto en **Python (FastAPI + SymPy)**.
-
-El sistema permite clasificar, resolver paso a paso y verificar el residuo de:
-1. **Ecuaciones diferenciales lineales de primer orden:** $y' + P(x)y = Q(x)$.
-2. **Ecuaciones homogéneas:** $y' = F(x, y)$ donde $F(tx, ty) = F(x, y)$.
-3. **Ecuaciones diferenciales exactas:** $M(x, y)\,dx + N(x, y)\,dy = 0$ (modo guiado y detección).
-4. **Ecuaciones de segundo orden reducibles:** familia autónoma $p' = A\,p + B\,p^n$ mediante la sustitución $p = y'$ y reducción a Bernoulli.
+</div>
 
 ---
 
-## 2. Requisitos Previos del Sistema
+### 📋 Ficha Técnica y Créditos Académicos
 
-Para instalar y ejecutar EDO Lab por primera vez en su equipo con **Windows 10 o Windows 11**, se requieren los siguientes dos componentes instalados:
+| 🏷️ Campo | 📌 Detalle |
+| :--- | :--- |
+| 🏛️ **Institución:** | **Universidad Dr. Andrés Bello (UNAB)** |
+| 📚 **Asignatura:** | **Matemática IV** |
+| 👨‍🏫 **Docente Evaluador:** | **Lic. Hernán Antonio Berríos Gámez** |
+| 👨‍💻 **Desarrollador / Estudiante:** | **Rafael Atilio Umaña Majano** *(Carnet: `UM1240042023`)* |
+| 💻 **Entorno de Ejecución:** | Windows 10 / 11 (100% Local y Seguro) |
 
-1. **Python 3.10 o superior** (se recomienda Python 3.11 o 3.12):
-   - Descarga oficial: [https://www.python.org/downloads/windows/](https://www.python.org/downloads/windows/)
-   - > [!IMPORTANT]
-     > Al ejecutar el instalador de Python, asegúrese de marcar la casilla inferior que dice:  
-     > **☑ "Add python.exe to PATH"** (o "Agregar Python al PATH"). Esto es indispensable para que los scripts por lotes reconozcan el comando `python`.
+---
 
-2. **Node.js 20 LTS o superior** (incluye `npm`):
-   - Descarga oficial: [https://nodejs.org/](https://nodejs.org/) (descargar la versión recomendada para la mayoría / LTS).
-   - El instalador configura automáticamente las variables de entorno necesarias.
+## 🌟 1. Presentación del Proyecto
+
+Estimado **Licenciado Hernán Antonio Berríos Gámez**:
+
+Bienvenido a **EDO Lab**, un entorno interactivo y pedagógico desarrollado para la resolución analítica, clasificación automática y verificación residual exacta de **Ecuaciones Diferenciales Ordinarias (EDO)**.
+
+La herramienta combina un **núcleo de cálculo simbólico en Python (FastAPI + SymPy)** con una **interfaz gráfica moderna y responsiva en React**, equipada con editor matemático en vivo mediante **MathLive** y renderizado algebraico en **KaTeX**.
 
 > [!NOTE]
-> **Sobre la conexión a Internet:**  
-> La conexión a Internet solo es necesaria **una única vez** durante la ejecución del instalador (`instalar.bat`), para descargar las librerías oficiales de Python y Node.js. Una vez instalado, **el uso normal de la aplicación es completamente offline** y no requiere conexión.
+> 🔒 **100% Local y Autónomo:** EDO Lab no requiere conexión a internet para su uso diario, no envía datos a servidores externos ni utiliza modelos generativos probabilísticos; cada paso es calculado y verificado algebraicamente por el motor simbólico.
 
 ---
 
-## 3. Instrucciones de Instalación y Uso Rápido (Método Recomendado)
+## 🎯 2. Familias de EDO Soportadas
 
-Se han preparado scripts automatizados para que no tenga que escribir comandos en la terminal.
+El sistema clasifica e implementa los métodos analíticos correspondientes a los contenidos de la **Guía de Estudio de Matemática IV (UNAB)**:
 
-### Paso 1: Instalación inicial (Se realiza solo una vez)
+1. 📈 **Lineales de 1.er Orden:** $y' + P(x)y = Q(x)$ mediante factor integrante $\mu(x) = e^{\int P(x)\,dx}$.
+2. 🔄 **Homogéneas:** $y' = F(x, y)$ con sustitución $y = v \cdot x$.
+3. 🎯 **Exactas:** $M(x, y)\,dx + N(x, y)\,dy = 0$ con prueba de Euler $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ y cálculo de la función potencial $\Psi(x, y) = C$ (disponible también en **Modo Guiado**).
+4. ⚡ **Variables Separables:** $g(y)\,dy = f(x)\,dx$ con integración en cuadratura directa.
+5. 🌊 **Ecuaciones de Bernoulli:** $y' + P(x)y = Q(x)y^n$ mediante transformación $u = y^{1-n}$.
+6. 🔬 **2.º Orden Reducibles (Bernoulli Autónomo):** Familias de la forma $p' = A\,p + B\,p^n$ con la reducción $p = y'$.
 
-1. Abra la carpeta raíz del proyecto en el Explorador de Archivos de Windows.
-2. Haga **doble clic** sobre el archivo [instalar.bat](file:///c:/Users/Dell_E7270/Desktop/Programa/instalar.bat).
-3. Se abrirá una ventana de consola donde el asistente realizará automáticamente los 6 pasos requeridos:
-   - **[1/6]** Creación del entorno virtual aislado de Python (`.venv`).
-   - **[2/6]** Instalación de dependencias del backend (`FastAPI`, `Uvicorn`, `SymPy`, `Pydantic`, etc.).
-   - **[3/6]** Descarga e instalación de dependencias del frontend (`React`, `MathLive`, `Tailwind CSS`).
-   - **[4/6]** Compilación de la aplicación React para producción (`frontend/dist`).
-   - **[5/6]** Ejecución de la batería de pruebas unitarias automatizadas (`pytest`).
-   - **[6/6]** Verificación de integridad de los archivos generados.
-4. Cuando el proceso finalice correctamente, verá el mensaje:
+---
+
+## ⚙️ 3. Requisitos Previos del Sistema
+
+Antes de iniciar la instalación en Windows, asegúrese de contar con:
+
+* 🐍 **Python 3.10 o superior** (Recomendado 3.11 o 3.12):  
+  📥 Descargar: [python.org/downloads/windows](https://www.python.org/downloads/windows/)  
+  > [!IMPORTANT]
+  > Durante la instalación de Python, es fundamental marcar la casilla:  
+  > **☑ "Add python.exe to PATH"** (o *"Agregar Python al PATH"*).
+
+* 🟩 **Node.js 20 LTS o superior** (incluye `npm`):  
+  📥 Descargar: [nodejs.org](https://nodejs.org/)
+
+> [!TIP]
+> 🌐 **Sobre el uso de Internet:** Solo se necesita conexión la primera vez para descargar las dependencias. Una vez compilado, EDO Lab funciona de forma **completamente offline**.
+
+---
+
+## 🚀 4. Guía Rápida de Instalación y Uso (¡Método Sencillo con 1 Clic!)
+
+Se han creado dos scripts automatizados (`.bat`) para que la puesta en marcha sea inmediata:
+
+```
+📁 Proyecto EDO Lab
+ ├── ⚙️ instalar.bat   <-- [Paso 1: Ejecutar una sola vez]
+ ├── 🚀 iniciar.bat    <-- [Paso 2: Para abrir la aplicación siempre]
+ ├── 📂 backend/       <-- Motor simbólico FastAPI + SymPy
+ └── 📂 frontend/      <-- Interfaz visual React + MathLive
+```
+
+### 📦 Paso 1: Instalación Inicial Automática
+
+1. Diríjase a la carpeta raíz del proyecto.
+2. Haga **doble clic** en el archivo [instalar.bat](file:///c:/Users/Dell_E7270/Desktop/Programa/instalar.bat).
+3. El instalador ejecutará de forma asistida:
+   - 🔹 **[1/6]** Creación del entorno virtual aislado de Python (`.venv`).
+   - 🔹 **[2/6]** Instalación de librerías del backend (`FastAPI`, `SymPy`, `Uvicorn`, etc.).
+   - 🔹 **[3/6]** Descarga de paquetes del frontend (`npm install`).
+   - 🔹 **[4/6]** Compilación de la aplicación web a producción (`frontend/dist`).
+   - 🔹 **[5/6]** Ejecución de la batería de pruebas automáticas (`pytest` — 21/21).
+   - 🔹 **[6/6]** Verificación de integridad del sistema.
+4. Al terminar con éxito, verá en pantalla:
    ```text
    ================================================
    Instalacion completada correctamente.
    Ahora ejecuta iniciar.bat para abrir EDO Lab.
    ================================================
    ```
-5. Presione cualquier tecla para cerrar la ventana del instalador.
 
 ---
 
-### Paso 2: Iniciar la aplicación
+### ▶️ Paso 2: Iniciar la Aplicación
 
-1. En la misma carpeta raíz, haga **doble clic** sobre el archivo [iniciar.bat](file:///c:/Users/Dell_E7270/Desktop/Programa/iniciar.bat).
-2. El script iniciará el servidor local en segundo plano e **inmediatamente abrirá su navegador web predeterminado** apuntando a la dirección local:
+1. Haga **doble clic** en el archivo [iniciar.bat](file:///c:/Users/Dell_E7270/Desktop/Programa/iniciar.bat).
+2. Se iniciará el servidor local y **automáticamente se abrirá su navegador web** en:
    $$\text{http://127.0.0.1:8000}$$
-3. Ya puede interactuar libremente con **EDO Lab**, ingresar ecuaciones y explorar los procedimientos de resolución.
+3. ¡Listo! Ya puede ingresar ecuaciones, cargar ejemplos y explorar los pasos analíticos.
 
 > [!TIP]
-> **Para cerrar la aplicación:**  
-> Mantenga la ventana negra de la consola abierta mientras utilice la aplicación. Cuando desee finalizar, vaya a dicha ventana de consola y presione la combinación de teclas `Ctrl + C` (o simplemente cierre la ventana). Esto apagará el servidor y liberará el puerto de red.
+> 🛑 **Para cerrar el sistema:**  
+> Mantenga abierta la consola de comandos mientras use la app. Para salir, presione `Ctrl + C` en la ventana negra o simplemente ciérrela.
 
 ---
 
-## 4. Instrucciones de Ejecución Manual (Vía Terminal)
+## 🛠️ 5. Ejecución Manual Alternativa (PowerShell / CMD)
 
-Si el Licenciado prefiere inspeccionar los procesos o ejecutar los servicios manualmente mediante **PowerShell** o **Símbolo del sistema (CMD)**, puede seguir los siguientes pasos:
+Si el Licenciado desea ejecutar los servicios por separado o inspeccionar el código:
 
-### 4.1 Preparación del Backend (Python)
-
-Abra una ventana de PowerShell en la carpeta raíz del proyecto:
-
+### 🐍 Backend (FastAPI + SymPy)
 ```powershell
-# 1. Ingresar al directorio del backend
+# 1. Entrar al directorio backend y activar entorno
 cd backend
-
-# 2. Crear y activar el entorno virtual
-python -m venv ..\.venv
 ..\.venv\Scripts\Activate.ps1
 
-# 3. Instalar librerías requeridas
+# 2. Instalar dependencias
 python -m pip install -r requirements.txt
 
-# 4. Iniciar el servidor local
+# 3. Iniciar el servidor local
 python -m app.run_local
 ```
+*API local:* `http://127.0.0.1:8000` | *Documentación Swagger:* `http://127.0.0.1:8000/docs`
 
-El servidor quedará a la escucha en `http://127.0.0.1:8000` y la documentación interactiva de la API estará disponible en `http://127.0.0.1:8000/docs`.
-
-### 4.2 Compilación del Frontend (React + Vite)
-
-Para compilar manualmente la interfaz web:
-
+### ⚛️ Frontend (React + Vite)
 ```powershell
 cd frontend
 npm install
-npm run build
+npm run build    # Compila a frontend/dist para ser servido por FastAPI
+# o bien para desarrollo en vivo:
+npm run dev
 ```
 
-Los archivos estáticos generados se ubican en `frontend/dist/` y son servidos directamente por FastAPI, garantizando que no se requiera un servidor Node.js en tiempo de ejecución.
+---
+
+## 📚 6. Ejemplos Prácticos de Evaluación (Guía Matemática IV UNAB)
+
+Dentro de la aplicación encontrará un **Panel de Ejemplos Rápidos** organizado por categorías, alineado directamente con la guía de estudio:
+
+| Categoría | Ecuación de Ejemplo | Condiciones | Resultado Clave |
+| :--- | :--- | :--- | :--- |
+| 📈 **Lineal (Ej. 1)** | `y' + 3*y = 9` | $x_0 = 0,\; y_0 = 2$ | Factor integrante $\mu = e^{3x} \implies y(x) = 3 - e^{-3x}$ |
+| 📈 **Lineal (Ej. 2)** | `y' + 0.4*y = 8` | $x_0 = 0,\; y_0 = 5$ | Admite coeficientes decimales y simplificación racional |
+| 🎯 **Exacta (Ej. 3)** | `(4*x*y + 2)*dx + (2*x^2 + 6*y)*dy = 0` | — | $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} = 4x \implies \Psi(x,y) = 2x^2y + 2x + 3y^2 = C$ |
+| 🎯 **Exacta (Ej. 4)** | `(2*x + y)*dx + (x + 4*y)*dy = 0` | — | Exactitud demostrada y función potencial calculada paso a paso |
+| 🔄 **Homogénea (Ej. 5)** | `y' = (2*x + y) / x` | — | Sustitución $y = vx \implies v'x + v = 2 + v \implies v(x) = \ln\|Cx^2\|$ |
+| ⚡ **Separable** | `y' = x * y` | $x_0 = 0,\; y_0 = 1$ | $\frac{dy}{y} = x\,dx \implies y(x) = e^{x^2/2}$ |
+| 🌊 **Bernoulli** | `y' + y = x * y^2` | — | Reducción con $u = y^{-1}$ a ecuación lineal |
+| 🔬 **2.º Orden Reducible** | `y'' + y' = (y')^2` | $x_0 = 0,\; y_0 = 0,\; y'(0) = 1$ | Cambio $p = y'$ con solución de equilibrios y ramas |
 
 ---
 
-## 5. Ejemplos Prácticos para Pruebas del Evaluador
+## 🧪 7. Pruebas Unitarias Automatizadas
 
-Para evaluar el correcto funcionamiento de las diferentes familias implementadas en el motor matemático, se sugieren los siguientes ejercicios de prueba:
-
-1. **Ecuación Lineal de Primer Orden con PVI:**
-   - Ecuación: `y' + 3*y = 9`
-   - Condiciones iniciales: $x_0 = 0$, $y_0 = 2$
-   - *Resultado esperado:* Identifica el factor integrante $\mu(x) = e^{3x}$ y halla la solución particular $y(x) = 3 - e^{-3x}$.
-
-2. **Ecuación Homogénea:**
-   - Ecuación: `y' = (2*x + y) / x`
-   - *Resultado esperado:* Detecta homogeneidad de grado 0, aplica el cambio de variable $y = u \cdot x$ y separa variables para obtener la solución.
-
-3. **Ecuación Exacta (Modo Guiado):**
-   - En el selector de tipo de ecuación, elija **Modo Guiado Exacta**.
-   - Coeficiente $M(x, y)$: `4*x*y + 2`
-   - Coeficiente $N(x, y)$: `2*x^2 + 6*y`
-   - *Resultado esperado:* Verifica la condición de exactitud $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} = 4x$ e integra la función potencial $\Psi(x, y) = 2x^2y + 2x + 3y^2 = C$.
-
-4. **Ecuación de Segundo Orden Reducible:**
-   - Ecuación: `y'' + y' = (y')^2`
-   - Condiciones iniciales: $x_0 = 0$, $y_0 = 0$, $y'(x_0) = 1$
-   - *Resultado esperado:* Realiza la sustitución $p = y'$, resuelve la ecuación de Bernoulli resultante para $p(x)$ y finalmente integra para obtener $y(x)$.
-
----
-
-## 6. Verificación de Pruebas Unitarias
-
-Para comprobar la validez matemática y la robustez del sistema frente a errores de sintaxis y casos de frontera, puede ejecutar la suite de pruebas unitarias con el siguiente comando:
+El proyecto incluye una suite completa de pruebas unitarias que validan el analizador seguro (`safe_math`), el clasificador y los resolvedores:
 
 ```powershell
 cd backend
 ..\.venv\Scripts\python.exe -m pytest -v
 ```
 
-Todas las pruebas deben concluir en estado verde (`PASSED`), certificando que el parser seguro, el clasificador y los métodos de resolución cumplen con los estándares matemáticos exigidos.
+> [!NOTE]
+> ✅ **Resultado:** 21 pruebas unitarias pasando satisfactoriamente (`21 passed`), garantizando la exactitud matemática y la estabilidad de la plataforma.
 
 ---
 
-## 7. Estructura y Arquitectura del Código
+## 🏛️ 8. Arquitectura y Seguridad del Código
 
-Para facilitar la revisión técnica por parte del Licenciado, se detalla la organización de los módulos principales:
-
-- `backend/app/safe_math.py`: Analizador sintáctico seguro basado en el AST de Python. Limita estrictamente las funciones permitidas (`sin`, `cos`, `tan`, `exp`, `log`, `sqrt`, `Abs`) y previene cualquier inyección de código arbitrario.
-- `backend/app/engine.py`: Motor simbólico que implementa la clasificación rigurosa, el cálculo analítico de soluciones y la verificación residual mediante sustitución en la ecuación diferencial original.
-- `backend/app/main.py`: Punto de entrada de la API REST construida con FastAPI, encargada de comunicar el frontend con el motor matemático y de servir los archivos compilados de la interfaz.
-- `backend/app/run_local.py`: Coordinador de ejecución local en Windows que gestiona la apertura automática del navegador y el bloqueo de instancias para evitar conflictos de puertos.
-- `frontend/src/App.tsx`: Componente principal de la interfaz de usuario en React, integrando el editor interactivo MathLive, el renderizador KaTeX y el historial de consultas.
-- `instalar.bat` e `iniciar.bat`: Automatizaciones en scripts por lotes diseñadas específicamente para un despliegue asistido y sin fricciones en sistemas Windows.
+* 🛡️ **`backend/app/safe_math.py`:** Parser algebraico seguro basado en el árbol sintáctico (AST) de Python. Previene cualquier ejecución de código malicioso o arbitrario y restringe las funciones a un conjunto matemático seguro (`sin`, `cos`, `tan`, `exp`, `log`, `sqrt`, `Abs`).
+* 🧠 **`backend/app/engine.py`:** Motor matemático que ejecuta la clasificación por orden de precedencia, resuelve simbólicamente con SymPy y verifica la solución sustituyendo en la ecuación diferencial original para comprobar que el residuo sea nulo.
+* ⚡ **`backend/app/main.py`:** API REST construida con FastAPI que expone los endpoints `/api/identificar`, `/api/resolver` y sirve la aplicación compilada del frontend sin necesidad de procesos Node en producción.
+* 🖥️ **`backend/app/run_local.py`:** Gestor de ejecución local en Windows con bloqueo por instancia para evitar puertos duplicados y apertura automatizada del navegador.
+* 🎨 **`frontend/src/App.tsx`:** Interfaz web interactiva con panel de ejemplos, barra de inserción rápida de operadores, historial local y renderizado en LaTeX.
 
 ---
 
-## 8. Solución de Problemas Frecuentes
+## 💡 9. Preguntas Frecuentes y Solución de Problemas
 
-- **Error: "No se encontró Python 3.10 o posterior"**:
-  - Asegúrese de haber instalado Python marcando la opción *"Add python.exe to PATH"*. Si ya lo instaló sin marcarla, reinstale Python o añada la ruta a las Variables de Entorno del Sistema.
-- **Error: "No se encontró Node.js"**:
-  - Verifique que la instalación de Node.js haya finalizado y reinicie la terminal o el explorador para que Windows actualice las variables del sistema.
-- **El navegador no se abre automáticamente**:
-  - Si su navegador no se abre de forma automática al ejecutar `iniciar.bat`, abra manualmente cualquier navegador (Chrome, Edge, Firefox) e ingrese a `http://127.0.0.1:8000`.
-- **Conflicto con el puerto 8000**:
-  - Si otra aplicación en su computadora está utilizando el puerto 8000, cierre dicha aplicación antes de ejecutar `iniciar.bat`.
+* ❓ **¿Qué hacer si `instalar.bat` indica que no encuentra Python?**  
+  👉 Reinstale Python asegurándose de marcar la casilla **"Add python.exe to PATH"**.
+* ❓ **¿Qué hacer si `instalar.bat` indica que falta Node.js?**  
+  👉 Descargue e instale Node.js 20 LTS desde [nodejs.org](https://nodejs.org/).
+* ❓ **¿El navegador no se abrió automáticamente con `iniciar.bat`?**  
+  👉 Abra manualmente su navegador favorito (Edge, Chrome, Firefox) e ingrese a `http://127.0.0.1:8000`.
+* ❓ **¿Conflicto con el puerto 8000?**  
+  👉 Verifique que no haya otra instancia de EDO Lab o de otra aplicación corriendo en el puerto 8000.
+
+---
+
+<div align="center">
+
+**EDO Lab** — Desarrollado para la Cátedra de **Matemática IV**  
+*Universidad Dr. Andrés Bello (UNAB)*  
+El Salvador 🇸🇻
+
+</div>
